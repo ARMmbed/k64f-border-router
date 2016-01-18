@@ -1,0 +1,20 @@
+{
+  "name": "k64f-border-router",
+  "version": "0.0.1",
+  "description": "mbed OS border router for K64F",
+  "keywords": [
+    "nanostack",
+    "border router",
+	"K64F"
+  ],
+  "author": "Jani Pellikka <jani.pellikka@arm.com>",
+  "homepage": "https://github.com/ARMmbed/k64f-border-router",
+  "license": "Apache-2.0",
+  "bin": "./source",
+  "dependencies": {
+      "sal-stack-nanostack": "^3.0.0",
+      "sal-stack-nanostack-slip": "~0.0.1",
+	  "nanostack-border-router": "ARMmbed/nanostack-border-router#master",
+      "atmel-rf-driver": "~1.0.0"
+  }
+}
