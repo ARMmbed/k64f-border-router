@@ -5,7 +5,7 @@
   "keywords": [
     "nanostack",
     "border router",
-	"K64F"
+    "K64F"
   ],
   "author": "Jani Pellikka <jani.pellikka@arm.com>",
   "homepage": "https://github.com/ARMmbed/k64f-border-router",
@@ -14,7 +14,7 @@
   "dependencies": {
       "sal-stack-nanostack": "^3.0.0",
       "sal-stack-nanostack-slip": "~0.0.1",
-	  "nanostack-border-router": "ARMmbed/nanostack-border-router#master",
+      "nanostack-border-router": "ARMmbed/nanostack-border-router#master",
       "atmel-rf-driver": "~1.0.0"
   }
 }

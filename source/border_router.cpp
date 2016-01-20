@@ -27,7 +27,9 @@
 #include "nanostack-border-router/borderrouter_tasklet.h"
 #include "sal-stack-nanostack-slip/Slip.h"
 #include "nanostack-border-router/cfg_parser.h"
+#ifndef YOTTA_CFG_BORDER_ROUTER
 #include "k64f-border-router/static_config.h"
+#endif
 #include "ip6string.h"
 #define HAVE_DEBUG 1
 #include "ns_trace.h"
