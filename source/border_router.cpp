@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
+#include <string.h>
 #include "mbed-drivers/mbed.h"
 #include "nsdynmemLIB.h"
 #include "nanostack-border-router/borderrouter_tasklet.h"
+#include "nanostack-border-router/cfg_parser.h"
 #include "sal-nanostack-driver-k64f-eth/k64f_eth_nanostack_port.h"
 #include "sal-stack-nanostack-slip/Slip.h"
 #ifndef YOTTA_CFG_BORDER_ROUTER
@@ -60,18 +62,31 @@ static void trace_printer(const char *str)
  */
 void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
 {
-	// XXX: choose the correct driver based on the yotta config:
-	// arm_eth_phy_device_register(NULL, backhaul_driver_status_cb);
+	const char *driver = cfg_string(global_config, "BACKHAUL_DRIVER", "SLIP");
 
-	int8_t slipdrv_id;
-    slipdrv_id = pslipmacdriver->Slip_Init();
+	if (strcmp(driver, "SLIP") == 0) {
+		int8_t slipdrv_id;
+		pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX);
 
-    if (slipdrv_id >= 0) {
-		backhaul_driver_status_cb(1, slipdrv_id);
+		if (pslipmacdriver == NULL) {
+			tr_error("Unable to create SLIP driver");
+			return;
+		}
+
+	    slipdrv_id = pslipmacdriver->Slip_Init();
+
+	    if (slipdrv_id >= 0) {
+			backhaul_driver_status_cb(1, slipdrv_id);
+			return;
+		}
+
+	    tr_error("Backhaul driver init failed, retval = %d", slipdrv_id);
+	} else if (strcmp(driver, "ETH") == 0) {
+		arm_eth_phy_device_register(NULL, backhaul_driver_status_cb);
 		return;
 	}
 
-	tr_error("Backhaul driver init failed, retval = %d", slipdrv_id);
+    tr_error("Unsupported backhaul driver: %s", driver);
 }
 
 /**
@@ -93,13 +108,6 @@ void app_start(int, char**)
     // run LED toggler in the Minar scheduler
     minar::Scheduler::postCallback(mbed::util::FunctionPointer0<void>
 	    (toggle_led1).bind()).period(minar::milliseconds(500));
-
-	pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX);
-
-	if (pslipmacdriver == NULL) {
-		tr_debug("Unable to create SLIP driver");
-		return;
-	}
 
 	tr_info("Starting K64F border router...");
 	border_router_start();
