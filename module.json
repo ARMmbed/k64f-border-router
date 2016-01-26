@@ -12,9 +12,9 @@
   "license": "Apache-2.0",
   "bin": "./source",
   "dependencies": {
-      "sal-stack-nanostack": "^3.0.0",
-      "sal-stack-nanostack-slip": "~0.0.1",
       "nanostack-border-router": "ARMmbed/nanostack-border-router#master",
-      "atmel-rf-driver": "~1.0.0"
+      "sal-stack-nanostack": "ARMmbed/sal-stack-nanostack#master",
+	  "sal-nanostack-driver-k64f-eth": "ARMmbed/sal-nanostack-driver-k64f-eth#master",
+      "sal-stack-nanostack-slip": "~0.0.1"
   }
 }
