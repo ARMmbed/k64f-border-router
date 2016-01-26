@@ -67,6 +67,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
 	if (strcmp(driver, "SLIP") == 0) {
 		int8_t slipdrv_id;
 		pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX);
+		tr_debug("Using SLIP backhaul driver...");
 
 		if (pslipmacdriver == NULL) {
 			tr_error("Unable to create SLIP driver");
@@ -82,6 +83,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
 
 	    tr_error("Backhaul driver init failed, retval = %d", slipdrv_id);
 	} else if (strcmp(driver, "ETH") == 0) {
+		tr_debug("Using ETH backhaul driver...");
 		arm_eth_phy_device_register(NULL, backhaul_driver_status_cb);
 		return;
 	}
