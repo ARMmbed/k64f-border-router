@@ -38,6 +38,7 @@
 
 #define APP_DEFINED_HEAP_SIZE 32500
 static uint8_t app_stack_heap[APP_DEFINED_HEAP_SIZE];
+static uint8_t mac[6];
 
 static SlipMACDriver *pslipmacdriver;
 static Serial pc(USBTX, USBRX);
@@ -86,7 +87,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
 	    tr_error("Backhaul driver init failed, retval = %d", slipdrv_id);
 	} else if (strcmp(driver, "ETH") == 0) {
 		tr_debug("Using ETH backhaul driver...");
-		arm_eth_phy_device_register(NULL, backhaul_driver_status_cb);
+		arm_eth_phy_device_register(mac, backhaul_driver_status_cb);
 		return;
 	}
 
@@ -97,6 +98,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
  * \brief The entry point for this application.
  * Sets up the application and starts the border router module.
  */
+
 void app_start(int, char**)
 {
 	// set the baud rate for output printing
@@ -109,6 +111,14 @@ void app_start(int, char**)
     set_trace_print_function(trace_printer);
     set_trace_config(TRACE_MODE_COLOR|TRACE_ACTIVE_LEVEL_DEBUG|TRACE_CARRIAGE_RETURN);
 
+    /* Setting the MAC Address from UID (A yotta function)
+     * Takes UID Mid low and UID low and shuffles them around. However, there is a slight glitch.
+     * Its probable that at some point its going to generate a multicast adddress. So a little temporary
+     * tweak is needed  */
+    mbed_mac_address((char *)mac);
+    /* mbed_mac_address is currently slightly broken - ensure its not multicast at least */
+    mac[0] &= 0xfe;
+
     // run LED toggler in the Minar scheduler
     minar::Scheduler::postCallback(mbed::util::FunctionPointer0<void>
 	    (toggle_led1).bind()).period(minar::milliseconds(500));
@@ -116,6 +126,8 @@ void app_start(int, char**)
 	tr_info("Starting K64F border router...");
 	border_router_start();
 }
+
+
 
 /**
  * \brief Error handler for errors in dynamic memory handling.
