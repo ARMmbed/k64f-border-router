@@ -19,6 +19,8 @@
 	"networkid": "network000000000",
 	"prefix": "fd00:db8::",
 	"backhaul-prefix": "fd00:db8:ff1::",
+	"backhaul-mac-src": "CONFIG",
+	"backhaul-mac48": "{0x02, 0x00, 0x00, 0x00, 0x00, 0x01}",
 	"br-subghz-channel": 24,
 	"br-2-4-ghz-channel": 24,
 	"br-channel": 24,
@@ -38,7 +40,7 @@
 	"app-multicast-addr": "{0xff, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02}",
 	"backhaul-bootstrap-mode": "NET_IPV6_BOOTSTRAP_STATIC",
 	"br-short-address": "0xface",
-	"backhaul-driver": "SLIP"
+	"backhaul-driver": "ETH"
   },
   "hardware" : {
     "pins" : {
