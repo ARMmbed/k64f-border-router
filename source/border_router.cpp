@@ -69,7 +69,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
 
 	if (strcmp(driver, "SLIP") == 0) {
 		int8_t slipdrv_id;
-		pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX, mac);
+		pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX);
 		tr_debug("Using SLIP backhaul driver...");
 
 		if (pslipmacdriver == NULL) {
@@ -77,7 +77,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
 			return;
 		}
 
-	    slipdrv_id = pslipmacdriver->Slip_Init();
+	    slipdrv_id = pslipmacdriver->Slip_Init(mac);
 
 	    if (slipdrv_id >= 0) {
 			backhaul_driver_status_cb(1, slipdrv_id);
