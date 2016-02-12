@@ -22,7 +22,7 @@
 	"backhaul-mac-src": "CONFIG",
 	"backhaul-mac48": "{0x02, 0x00, 0x00, 0x00, 0x00, 0x01}",
 	"backhaul-default-route": "::/0",
-	"backhaul-next-hop": "::",
+	"backhaul-next-hop": "",
 	"rf-channel": 24,
 	"br-rpl-flags": "RPL_GROUNDED | BR_DODAG_MOP_NON_STORING | RPL_DODAG_PREF(0)",
 	"br-rpl-instance-id": 1,
