@@ -115,12 +115,8 @@ void app_start(int, char**)
 
 	if (strcmp(mac_src, "BOARD") == 0) {
 		/* Setting the MAC Address from UID (A yotta function)
-		 * Takes UID Mid low and UID low and shuffles them around. However, there is a slight glitch.
-		 * Its probable that at some point its going to generate a multicast adddress. So a little temporary
-		 * tweak is needed  */
+		 * Takes UID Mid low and UID low and shuffles them around. */
 		mbed_mac_address((char *)mac);
-		/* mbed_mac_address is currently slightly broken - ensure its not multicast at least */
-		mac[0] &= 0xfe;
 	} else if (strcmp(mac_src, "CONFIG") == 0) {
 		/* MAC is defined by the user through yotta configuration */
 		const char *mac48 = cfg_string(global_config, "BACKHAUL_MAC48", NULL);
