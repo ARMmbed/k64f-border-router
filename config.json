@@ -1,12 +1,15 @@
 {
   "k64f-border-router": {
-	"debug-traces": 1,
-    "baud": "115200"
+    "debug-traces": 1,
+    "baud": "115200",
+    "backhaul-driver": "ETH",
+    "backhaul-mac-src": "CONFIG",
+    "backhaul-mac": "{0x02, 0x00, 0x00, 0x00, 0x00, 0x01}"
   },
   "border-router": {
 	"debug-traces": 1,
     "name": "mbed OS Border Router",
-	"model": "K64F-BR",
+	"model": "FRDM-K64F-BR",
 	"manufacturer": "ARM",
 	"network-mode": "ND_WITH_MLE",
 	"security-mode": "PSK",
@@ -22,10 +25,7 @@
 	"rf-channel": 24,
 	"br-short-address": "0xface",
 	"backhaul-bootstrap-mode": "NET_IPV6_BOOTSTRAP_STATIC",
-	"backhaul-driver": "SLIP",
 	"backhaul-prefix": "fd00:db8:ff1::",
-	"backhaul-mac-src": "CONFIG",
-	"backhaul-mac48": "{0x02, 0x00, 0x00, 0x00, 0x00, 0x01}",
 	"backhaul-default-route": "::/0",
 	"backhaul-next-hop": "",
 	"br-rpl-flags": "RPL_GROUNDED | BR_DODAG_MOP_NON_STORING | RPL_DODAG_PREF(0)",

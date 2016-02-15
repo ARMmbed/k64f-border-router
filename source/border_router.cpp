@@ -18,7 +18,6 @@
 #include "mbed-drivers/mbed.h"
 #include "nsdynmemLIB.h"
 #include "nanostack-border-router/borderrouter_tasklet.h"
-#include "nanostack-border-router/cfg_parser.h"
 #include "sal-nanostack-driver-k64f-eth/k64f_eth_nanostack_port.h"
 #include "sal-stack-nanostack-slip/Slip.h"
 #ifndef YOTTA_CFG_BORDER_ROUTER
@@ -35,6 +34,9 @@
 
 #include "ns_trace.h"
 #define TRACE_GROUP "app"
+
+#define STR_HELPER(x) #x
+#define STR(x) STR_HELPER(x)
 
 #define APP_DEFINED_HEAP_SIZE 32500
 static uint8_t app_stack_heap[APP_DEFINED_HEAP_SIZE];
@@ -65,7 +67,7 @@ static void trace_printer(const char *str)
  */
 void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
 {
-	const char *driver = cfg_string(global_config, "BACKHAUL_DRIVER", "SLIP");
+	const char *driver = STR(YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_DRIVER);
 
 	if (strcmp(driver, "SLIP") == 0) {
 		int8_t slipdrv_id;
@@ -111,7 +113,7 @@ void app_start(int, char**)
     set_trace_print_function(trace_printer);
     set_trace_config(TRACE_MODE_COLOR|TRACE_ACTIVE_LEVEL_DEBUG|TRACE_CARRIAGE_RETURN);
 
-	const char *mac_src = cfg_string(global_config, "BACKHAUL_MAC_SRC", "BOARD");
+	const char *mac_src = STR(YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_MAC_SRC);
 
 	if (strcmp(mac_src, "BOARD") == 0) {
 		/* Setting the MAC Address from UID (A yotta function)
@@ -119,12 +121,7 @@ void app_start(int, char**)
 		mbed_mac_address((char *)mac);
 	} else if (strcmp(mac_src, "CONFIG") == 0) {
 		/* MAC is defined by the user through yotta configuration */
-		const char *mac48 = cfg_string(global_config, "BACKHAUL_MAC48", NULL);
-		
-		if (mac48 == NULL) {
-			tr_error("No MAC-48 defined in configuration!");
-			return;
-		}
+		const uint8_t mac48[] = YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_MAC;
 
 		for (int i = 0; i < sizeof(mac); ++i) {
 			mac[i] = mac48[i];
