@@ -17,7 +17,7 @@ The border router specific settings can be found in the *config.json* file under
 | backhaul-next-hop                   | The next-hop value for the backhaul default route; should be a link-local address of a neighboring router, default: empty (on-link prefix). Example format: `fe80::1` |
 | rf-channel                          | The wireless (6LoWPAN mesh network) radio channel the border router application listens on. |
 | security-mode                       | The 6LoWPAN mesh network traffic (link layer) can be protected with the Private Shared Key (PSK) security mode, allowed values: `NONE` and `PSK`. |
-| psk-key                             | 16-byte long private shared key to be used when the PSK security mode is used. |
+| psk-key                             | 16-byte long private shared key to be used when the PSK security mode is used. Example format (hexadecimal byte values separated by commas inside brackets): `{0x00, ..., 0x0f}` |
 | multicast-addr                      | Multicast forwarding is supported by default. This field defines the multicast address the border router application forwards multicast packets for (on the bakchaul and RF interfaces). Example format: `ff05::5` |
 
 Example of the yotta configuration file (config.json):
