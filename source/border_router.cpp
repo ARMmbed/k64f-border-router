@@ -65,33 +65,33 @@ static void trace_printer(const char *str)
  * \brief Initializes the SLIP MAC backhaul driver.
  * This function is called by the border router module.
  */
-void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
+void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t, int8_t))
 {
-	const char *driver = STR(YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_DRIVER);
+    const char *driver = STR(YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_DRIVER);
 
-	if (strcmp(driver, "SLIP") == 0) {
-		int8_t slipdrv_id;
-		pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX);
-		tr_debug("Using SLIP backhaul driver...");
+    if (strcmp(driver, "SLIP") == 0) {
+        int8_t slipdrv_id;
+        pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX);
+        tr_debug("Using SLIP backhaul driver...");
 
-		if (pslipmacdriver == NULL) {
-			tr_error("Unable to create SLIP driver");
-			return;
-		}
+        if (pslipmacdriver == NULL) {
+            tr_error("Unable to create SLIP driver");
+            return;
+        }
 
-	    slipdrv_id = pslipmacdriver->Slip_Init(mac);
+        slipdrv_id = pslipmacdriver->Slip_Init(mac);
 
-	    if (slipdrv_id >= 0) {
-			backhaul_driver_status_cb(1, slipdrv_id);
-			return;
-		}
+        if (slipdrv_id >= 0) {
+            backhaul_driver_status_cb(1, slipdrv_id);
+            return;
+        }
 
-	    tr_error("Backhaul driver init failed, retval = %d", slipdrv_id);
-	} else if (strcmp(driver, "ETH") == 0) {
-		tr_debug("Using ETH backhaul driver...");
-		arm_eth_phy_device_register(mac, backhaul_driver_status_cb);
-		return;
-	}
+        tr_error("Backhaul driver init failed, retval = %d", slipdrv_id);
+    } else if (strcmp(driver, "ETH") == 0) {
+        tr_debug("Using ETH backhaul driver...");
+        arm_eth_phy_device_register(mac, backhaul_driver_status_cb);
+        return;
+    }
 
     tr_error("Unsupported backhaul driver: %s", driver);
 }
@@ -101,39 +101,39 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t,int8_t))
  * Sets up the application and starts the border router module.
  */
 
-void app_start(int, char**)
+void app_start(int, char **)
 {
-	// set the baud rate for output printing
-	pc.baud(YOTTA_CFG_K64F_BORDER_ROUTER_BAUD);
+    // set the baud rate for output printing
+    pc.baud(YOTTA_CFG_K64F_BORDER_ROUTER_BAUD);
 
     // set heap size and memory error handler for this application
-	ns_dyn_mem_init(app_stack_heap, APP_DEFINED_HEAP_SIZE, app_heap_error_handler, 0);
+    ns_dyn_mem_init(app_stack_heap, APP_DEFINED_HEAP_SIZE, app_heap_error_handler, 0);
 
     trace_init(); // set up the tracing library
     set_trace_print_function(trace_printer);
-    set_trace_config(TRACE_MODE_COLOR|TRACE_ACTIVE_LEVEL_DEBUG|TRACE_CARRIAGE_RETURN);
+    set_trace_config(TRACE_MODE_COLOR | TRACE_ACTIVE_LEVEL_DEBUG | TRACE_CARRIAGE_RETURN);
 
-	const char *mac_src = STR(YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_MAC_SRC);
+    const char *mac_src = STR(YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_MAC_SRC);
 
-	if (strcmp(mac_src, "BOARD") == 0) {
-		/* Setting the MAC Address from UID (A yotta function)
-		 * Takes UID Mid low and UID low and shuffles them around. */
-		mbed_mac_address((char *)mac);
-	} else if (strcmp(mac_src, "CONFIG") == 0) {
-		/* MAC is defined by the user through yotta configuration */
-		const uint8_t mac48[] = YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_MAC;
+    if (strcmp(mac_src, "BOARD") == 0) {
+        /* Setting the MAC Address from UID (A yotta function)
+         * Takes UID Mid low and UID low and shuffles them around. */
+        mbed_mac_address((char *)mac);
+    } else if (strcmp(mac_src, "CONFIG") == 0) {
+        /* MAC is defined by the user through yotta configuration */
+        const uint8_t mac48[] = YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_MAC;
 
-		for (int i = 0; i < sizeof(mac); ++i) {
-			mac[i] = mac48[i];
-		}
-	}
+        for (int i = 0; i < sizeof(mac); ++i) {
+            mac[i] = mac48[i];
+        }
+    }
 
-	// run LED toggler in the Minar scheduler
+    // run LED toggler in the Minar scheduler
     minar::Scheduler::postCallback(mbed::util::FunctionPointer0<void>
-	    (toggle_led1).bind()).period(minar::milliseconds(500));
+                                   (toggle_led1).bind()).period(minar::milliseconds(500));
 
-	tr_info("Starting K64F border router...");
-	border_router_start();
+    tr_info("Starting K64F border router...");
+    border_router_start();
 }
 
 
@@ -143,23 +143,22 @@ void app_start(int, char**)
  */
 static void app_heap_error_handler(heap_fail_t event)
 {
-	switch (event)
-	{
-		case NS_DYN_MEM_NULL_FREE:
-			break;
-		case NS_DYN_MEM_DOUBLE_FREE:
-			break;
-		case NS_DYN_MEM_ALLOCATE_SIZE_NOT_VALID:
-			break;
-		case NS_DYN_MEM_POINTER_NOT_VALID:
-			break;
-		case NS_DYN_MEM_HEAP_SECTOR_CORRUPTED:
-			break;
-		case NS_DYN_MEM_HEAP_SECTOR_UNITIALIZED:
-			break;
-		default:
-			break;
-	}
+    switch (event) {
+        case NS_DYN_MEM_NULL_FREE:
+            break;
+        case NS_DYN_MEM_DOUBLE_FREE:
+            break;
+        case NS_DYN_MEM_ALLOCATE_SIZE_NOT_VALID:
+            break;
+        case NS_DYN_MEM_POINTER_NOT_VALID:
+            break;
+        case NS_DYN_MEM_HEAP_SECTOR_CORRUPTED:
+            break;
+        case NS_DYN_MEM_HEAP_SECTOR_UNITIALIZED:
+            break;
+        default:
+            break;
+    }
 
-	while(1);
+    while (1);
 }
