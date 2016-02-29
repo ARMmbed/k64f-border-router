@@ -20,9 +20,6 @@
 #include "nanostack-border-router/borderrouter_tasklet.h"
 #include "sal-nanostack-driver-k64f-eth/k64f_eth_nanostack_port.h"
 #include "sal-stack-nanostack-slip/Slip.h"
-#ifndef YOTTA_CFG_BORDER_ROUTER
-#include "k64f-border-router/static_config.h"
-#endif
 
 #ifdef YOTTA_CFG_K64F_BORDER_ROUTER_DEBUG_TRACES
 #if YOTTA_CFG_K64F_BORDER_ROUTER_DEBUG_TRACES == 1
