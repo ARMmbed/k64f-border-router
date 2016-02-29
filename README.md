@@ -78,6 +78,7 @@ Locate the binary file `k64f-border-route.bin` in the directory `build/frdm-k64f
 To view the debug output of the border router application, you need to connect to the to the development board using a terminal emulation program, such as PuTTY.
 
 In PuTTY:
+
 1. Enter your identified serial port to **Serial line** (for example `/dev/ttyACM0` in Linux or `COM19` in Windows).
 2. Set the **Speed** to 115200. 
 3. Go to the **Serial** section under **Connection**. 
