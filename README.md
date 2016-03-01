@@ -11,7 +11,7 @@ The FRDM-K64F border router application consists of 4 software components as sho
 
 ![](images/frdm_k64f_br_components.png)
 
-* [Nanostack border router](https://github.com/ARMmbed/nanostack-border-router) - is the core IPv6 gateway and provides the mesh network functionality.
+* [Nanostack Border Router](https://github.com/ARMmbed/nanostack-border-router) - is the core IPv6 gateway and provides the mesh network functionality.
 * [Atmel RF driver](https://github.com/ARMmbed/atmel-rf-driver) - is the driver for the Atmel AT86RF2xxx wireless 6LoWPAN shields.
 * [Ethernet driver](https://github.com/ARMmbed/sal-nanostack-driver-k64f-eth) - is the Ethernet driver for the FRDM-K64F development board.
 * [SLIP driver](https://github.com/ARMmbed/sal-stack-nanostack-slip) - is a generic Serial Line over IPv6 (SLIPv6) driver for mbedOS boards.
@@ -31,7 +31,7 @@ The FRDM-K64F border router application consists of 4 software components as sho
 * [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/) - for viewing the debug output.
 
 ## Configuration
-To configure the FRDM-K64F border router you need to make changes in the yotta configuration file `config.json` in the root directory of the source tree. For the complete list of configuration options, please refer to the [Nanostack Border Router](https://github.com/ARMmbed/nanostack-border-router) documentation.
+To configure the FRDM-K64F Border Router you need to make changes in the yotta configuration file `config.json` in the root directory of the source tree. For the complete list of configuration options, please refer to the [Nanostack Border Router](https://github.com/ARMmbed/nanostack-border-router) documentation.
 
 ```json
   "k64f-border-router": {
@@ -64,7 +64,7 @@ Example yotta configuration for the SLIP driver:
 ## Build instructions
 1. Install [yotta](http://docs.yottabuild.org/#installing).
 2. Install the necessary compiler toolchains.
-3. Download the source code of the FRDM-K64F border router by using Git.
+3. Download the source code of the FRDM-K64F Border Router by using Git.
 4. Modify the yotta configuration file (`config.json`) to reflect your network setup.
 5. In the root directory, select the target device: `yotta target frdm-k64f-armcc`
 6. Build the binary: `yotta build`
