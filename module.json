@@ -1,7 +1,7 @@
 {
   "name": "k64f-border-router",
-  "version": "0.0.1",
-  "description": "mbed OS border router for K64F",
+  "version": "1.0.0",
+  "description": "6LoWPAN border router for FRDM-K64F",
   "keywords": [
     "nanostack",
     "border router",
@@ -12,9 +12,9 @@
   "license": "Apache-2.0",
   "bin": "./source",
   "dependencies": {
-      "nanostack-border-router": "ARMmbed/nanostack-border-router#master",
-      "sal-stack-nanostack": "ARMmbed/sal-stack-nanostack-private#master",
-	  "sal-nanostack-driver-k64f-eth": "ARMmbed/sal-nanostack-driver-k64f-eth#master",
-      "sal-stack-nanostack-slip": "~0.0.1"
+      "nanostack-border-router": "^1.0.0",
+      "sal-stack-nanostack": "^4.0.2",
+	  "sal-nanostack-driver-k64f-eth": "^1.0.0",
+      "sal-stack-nanostack-slip": "^1.0.0"
   }
 }
