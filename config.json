@@ -3,7 +3,7 @@
     "debug-traces": 1,
     "baud": "115200",
     "backhaul-driver": "ETH",
-    "backhaul-mac-src": "CONFIG",
+    "backhaul-mac-src": "BOARD",
     "backhaul-mac": "{0x02, 0x00, 0x00, 0x00, 0x00, 0x01}"
   },
   "border-router": {
@@ -22,7 +22,9 @@
 	"network-id": "network000000000",
 	"beacon-protocol-id": 4,
 	"prefix": "fd00:db8::",
-	"rf-channel": 24,
+	"rf-channel": 12,
+	"rf-channel-page": 0,
+	"rf-channel-mask": "0x07fff800",
 	"short-mac-address": "0xface",
 	"backhaul-bootstrap-mode": "NET_IPV6_BOOTSTRAP_STATIC",
 	"backhaul-prefix": "fd00:db8:ff1::",
