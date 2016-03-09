@@ -1,6 +1,8 @@
 # FRDM-K64F border router
 This document describes how to configure, compile, and run a FRDM-K64F 6LoWPAN border router application on a [FRDM-K64F development board](https://www.mbed.com/en/development/hardware/boards/nxp/frdm_k64f/). Instructions for debugging and testing are also provided.
 
+Note: this Border Router does not support Thread.
+
 ## Introduction
 Border router is a network gateway between a wireless 6LoWPAN mesh network and a backhaul network. It controls and relays traffic between the two networks. In a typical setup, a 6LoWPAN border router is connected to another router in the backhaul network (over Ethernet or a serial line) which in turn forwards traffic to/from the Internet or a private company LAN, for instance.
 
