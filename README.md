@@ -18,7 +18,7 @@ The FRDM-K64F border router application consists of 4 software components as sho
 
 ## Required hardware
 * An FRDM-K64F development board (6LoWPAN border router) - to run the border router application.
-* An mbed 6LoWPAN shield (AT86RF212B/AT86RF233) - for wireless 6LoWPAN mesh connectivity.
+* An mbed 6LoWPAN shield ([AT86RF212B](http://uk.rs-online.com/web/p/radio-frequency-development-kits/9054107/)/AT86RF233) - for wireless 6LoWPAN mesh connectivity.
 * A micro-USB cable - to connect the development board to a PC for debugging and power.
 * An Ethernet cable - to connect the development board to a backhaul network.
 
