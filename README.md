@@ -66,7 +66,7 @@ Example yotta configuration for the SLIP driver:
 2. Install the necessary compiler toolchains.
 3. Download the source code of the FRDM-K64F border router by using Git.
 4. Modify the yotta configuration file (`config.json`) to reflect your network setup.
-5. In the root directory, select the target device: `yotta target frdm-k64f-armcc`
+5. In the root directory, select the target device: `yotta target frdm-k64f-armcc` or `yotta target frdm-k64f-gcc`
 6. Build the binary: `yotta build`
 
 The binary will be created in the `/build/frdm-k64f-armcc/source/` directory.
