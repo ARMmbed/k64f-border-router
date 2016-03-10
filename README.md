@@ -1,5 +1,7 @@
 # FRDM-K64F border router
-This document describes how to configure, compile, and run a FRDM-K64F 6LoWPAN border router application on a [FRDM-K64F development board](https://developer.mbed.org/platforms/FRDM-K64F/). Instructions for debugging and testing are also provided.
+This document describes how to configure, compile, and run a FRDM-K64F 6LoWPAN border router application on a [FRDM-K64F development board](https://www.mbed.com/en/development/hardware/boards/nxp/frdm_k64f/). Instructions for debugging and testing are also provided.
+
+Note: this Border Router does not support Thread.
 
 ## Introduction
 Border router is a network gateway between a wireless 6LoWPAN mesh network and a backhaul network. It controls and relays traffic between the two networks. In a typical setup, a 6LoWPAN border router is connected to another router in the backhaul network (over Ethernet or a serial line) which in turn forwards traffic to/from the Internet or a private company LAN, for instance.
@@ -18,7 +20,7 @@ The FRDM-K64F border router application consists of 4 software components as sho
 
 ## Required hardware
 * An FRDM-K64F development board (6LoWPAN border router) - to run the border router application.
-* An mbed 6LoWPAN shield (AT86RF212B/AT86RF233) - for wireless 6LoWPAN mesh connectivity.
+* An mbed 6LoWPAN shield (AT86RF212B/[AT86RF233](http://uk.rs-online.com/web/p/radio-frequency-development-kits/9054107/)) - for wireless 6LoWPAN mesh connectivity.
 * A micro-USB cable - to connect the development board to a PC for debugging and power.
 * An Ethernet cable - to connect the development board to a backhaul network.
 
@@ -66,7 +68,7 @@ Example yotta configuration for the SLIP driver:
 2. Install the necessary compiler toolchains.
 3. Download the source code of the FRDM-K64F border router by using Git.
 4. Modify the yotta configuration file (`config.json`) to reflect your network setup.
-5. In the root directory, select the target device: `yotta target frdm-k64f-armcc`
+5. In the root directory, select the target device: `yotta target frdm-k64f-armcc` or `yotta target frdm-k64f-gcc`
 6. Build the binary: `yotta build`
 
 The binary will be created in the `/build/frdm-k64f-armcc/source/` directory.
