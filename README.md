@@ -68,13 +68,14 @@ Example yotta configuration for the SLIP driver:
 2. Install the necessary compiler toolchains.
 3. Download the source code of the FRDM-K64F border router by using Git.
 4. Modify the yotta configuration file (`config.json`) to reflect your network setup.
-5. In the root directory, select the target device: `yotta target frdm-k64f-armcc` or `yotta target frdm-k64f-gcc`
+5. In the root directory, select the target device: `yotta target frdm-k64f-gcc`
+   (You can try the ARM Compiler, although this is not officially supported at this time: `yotta target frdm-k64f-armcc`)
 6. Build the binary: `yotta build`
 
-The binary will be created in the `/build/frdm-k64f-armcc/source/` directory.
+The binary will be created in the `/build/frdm-k64f-gcc/source/` directory.
 
 ## Running the border router application
-Locate the binary file `k64f-border-route.bin` in the directory `build/frdm-k64f-armcc/source/` and copy the file to the USB mass storage root of the FRDM-K64F development board. It will be automatically flashed to the MCU. After flashing, the board will restart itself. To finalise the flashing, press the reset button on the development board. A green light should start blinking to indicate successful startup.
+Locate the binary file `k64f-border-route.bin` in the directory `build/frdm-k64f-gcc/source/` and copy the file to the USB mass storage root of the FRDM-K64F development board. It will be automatically flashed to the MCU. After flashing, the board will restart itself. To finalise the flashing, press the reset button on the development board. A green light should start blinking to indicate successful startup.
 
 ## Debugging the border router application
 To view the debug output of the border router application, you need to connect to the to the development board using a terminal emulation program, such as PuTTY.
