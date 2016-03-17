@@ -154,8 +154,8 @@ This section describes how to manually verify that the FRDM-K64F border router a
 11. Verify that the routes with the backhaul and RF interface prefixes have been added to your Linux routing table: `route -6`.
 12. Press the reset button on the board running the mbed client application.
 13. After a successful bootstrap you should see the node's RF interface address, for example: `GP IPv6: fd00:db8::fec2:3d00:4:c762`
-12. On the PC, ping the RF interface address of the 6LoWPAN node, for example: `ping6 fd00:db8::fec2:3d00:4:c762` and you should see pings going through.
-13. You have verified that the FRDM-K64F border router application is routing traffic between the mesh network and backhaul network!
+14. On the PC, ping the RF interface address of the 6LoWPAN node, for example: `ping6 fd00:db8::fec2:3d00:4:c762` and you should see pings going through.
+15. You have verified that the FRDM-K64F border router application is routing traffic between the mesh network and backhaul network!
 
 Example output of the `ifconfig` command on the PC:
 ```
