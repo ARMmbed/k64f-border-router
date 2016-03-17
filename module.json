@@ -1,6 +1,6 @@
 {
   "name": "k64f-border-router",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "6LoWPAN border router for FRDM-K64F",
   "keywords": [
     "nanostack",
@@ -12,9 +12,9 @@
   "license": "Apache-2.0",
   "bin": "./source",
   "dependencies": {
-      "nanostack-border-router": "^1.0.0",
-      "sal-stack-nanostack": "^4.0.2",
-	  "sal-nanostack-driver-k64f-eth": "^1.0.0",
-      "sal-stack-nanostack-slip": "^1.0.0"
+    "nanostack-border-router": "^1.0.0",
+    "sal-stack-nanostack": "^4.0.2",
+    "sal-nanostack-driver-k64f-eth": "^1.0.0",
+    "sal-stack-nanostack-slip": "^1.0.0"
   }
 }
