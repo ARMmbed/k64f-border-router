@@ -77,7 +77,7 @@ Example yotta configuration for the SLIP driver:
 The binary will be created in the `/build/frdm-k64f-gcc/source/` directory.
 
 ## Running the border router application
-Locate the binary file `k64f-border-route.bin` in the directory `build/frdm-k64f-gcc/source/` and copy the file to the USB mass storage root of the FRDM-K64F development board. It will be automatically flashed to the MCU. After the flashing process has completed, please press the reset button on the development board to start the application. A green light should start blinking to indicate successful startup.
+Locate the binary file `k64f-border-route.bin` in the directory `build/frdm-k64f-gcc/source/` and copy the file to the USB mass storage root of the FRDM-K64F development board. It will be automatically flashed to the MCU. After the flashing process has completed, press the reset button on the development board to start the application. A green light should start blinking to indicate a successful startup.
 
 ## Debugging the border router application
 To view the debug output of the border router application, you need to connect to the to the development board using a terminal emulation program, such as PuTTY.
@@ -94,7 +94,7 @@ In PuTTY:
 $ dmesg | grep -i ttyACM
 ```
 
-In the PuTTY main screen, save the session and click **Open**. This opens a console window showing debug messages from the application. If the console screen is blank, you may need to press the reset button of the board to see the debug information. The debug prints in the console look something like this for the border router:
+In the PuTTY main screen, save the session and click **Open**. This opens a console window showing debug messages from the application. If the console screen is blank, you may need to press the reset button of the board to see the debug information. The debug prints for the border router look something like this in the console:
 
 ```
 [DBG ][app ]: Using ETHERNET backhaul driver...
@@ -119,8 +119,7 @@ In the PuTTY main screen, save the session and click **Open**. This opens a cons
 ```
 Note that the border router does not print anything else to the console window after bootstrap in this example application.
 
-
-The debug prints for the 6LoWPAN node running `mbed-client-example-6lowpan` application should look something like this after a successful bootstrap:
+The debug prints for the 6LoWPAN node running the `mbed-client-example-6lowpan` application should look something like this after a successful bootstrap:
 
 ```
 [DBG ][m6La]: init()
