@@ -35,7 +35,8 @@
 #define STR_HELPER(x) #x
 #define STR(x) STR_HELPER(x)
 
-#define APP_DEFINED_HEAP_SIZE 32500
+#define APP_DEFINED_HEAP_SIZE 128500
+
 static uint8_t app_stack_heap[APP_DEFINED_HEAP_SIZE];
 static uint8_t mac[6] = {0};
 
