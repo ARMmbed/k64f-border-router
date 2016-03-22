@@ -110,7 +110,7 @@ In the PuTTY main screen, save the session and click **Open**. This opens a cons
 [DBG ][brro]: Backhaul interface addresses:
 [DBG ][brro]:    [0] fe80::ff:fe00:1
 [DBG ][brro]:    [1] fd00:db8:ff1::ff:fe00:1
-[DBG ][brro]: Using 24GHZ radio, type = 2, channel = 24
+[DBG ][brro]: Using 24GHZ radio, type = 2, channel = 12
 [DBG ][brro]: RF bootstrap ready, IPv6 = fd00:db8::ff:fe00:face
 [DBG ][brro]: RF interface addresses:
 [DBG ][brro]:    [0] fe80::ff:fe00:face
@@ -134,13 +134,13 @@ The debug prints for the 6LoWPAN node running the `mbed-client-example-6lowpan` 
 [DBG ][m6LND]: PAN ID: 07:00
 [DBG ][m6LND]: MAC 64-bit: fc:c2:3d:00:00:04:c7:62
 [DBG ][m6LND]: IID (Based on MAC 64-bit address): fe:c2:3d:00:00:04:c7:62
-[DBG ][m6LND]: Channel: 24
+[DBG ][m6LND]: Channel: 12
 ```
 
 ## Testing the border router application using Linux
 This section describes how to manually verify that the FRDM-K64F border router application is running correctly. For testing mesh network connectivity, you need to connect a node running `mbed-client-example-6lowpan` application in 6LoWPAN ND mode to the network and ping the node's RF interface address from your PC.
 
-1. Configure the [mbed-client-example-6lowpan](https://github.com/ARMmbed/mbed-client-example-6lowpan/#changing-the-radio-channel) to use the same channel as the border router (default: 24). Ensure that `appl_bootstrap_mode_thread` is set to false in the `config.json` file.
+1. Configure the [mbed-client-example-6lowpan](https://github.com/ARMmbed/mbed-client-example-6lowpan/#changing-the-radio-channel) to use the same channel as the border router (default: 12). Ensure that `appl_bootstrap_mode_thread` is set to false in the `config.json` file.
 2. Compile the `mbed-client-example-6lowpan` application and flash it into one of the development boards as described in [mbed client build instructions](https://github.com/ARMmbed/mbed-client-example-6lowpan/#build-instructions).
 3. Edit the border router's `config.json` file by changing the `security-mode` to `NONE`.
 4. Compile the border router application and flash it into the second development board.
