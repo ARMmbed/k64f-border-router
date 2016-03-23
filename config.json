@@ -22,7 +22,7 @@
 	"network-id": "network000000000",
 	"beacon-protocol-id": 4,
 	"prefix": "fd00:db8::",
-	"prefix-from-backhaul": false,
+	"prefix-from-backhaul": true,
 	"rf-channel": 12,
 	"rf-channel-page": 0,
 	"rf-channel-mask": "0x07fff800",
