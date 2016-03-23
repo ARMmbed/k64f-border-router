@@ -19,7 +19,7 @@ The FRDM-K64F border router application consists of 4 software components as sho
 * [SLIP driver](https://github.com/ARMmbed/sal-stack-nanostack-slip) - is a generic Serial Line over IPv6 (SLIPv6) driver for mbedOS boards.
 
 ## Required hardware
-* Two FRDM-K64F development boards - one for the border router application and another one for the 6LoWPAN mbed client application.
+* Two FRDM-K64F development boards - one for the border router application and another one for [the 6LoWPAN mbed client application](https://github.com/ARMmbed/mbed-client-example-6lowpan/).
 * Two mbed 6LoWPAN shields (AT86RF212B/[AT86RF233](http://uk.rs-online.com/web/p/radio-frequency-development-kits/9054107/)) - for wireless 6LoWPAN mesh connectivity.
 * Two micro-USB cables - to connect the development boards to a PC for debugging and power.
 * An Ethernet cable - to connect the development board to a backhaul network.
@@ -50,6 +50,8 @@ The FRDM-K64F border router application can be connected to a backhaul network. 
 You need to configure a default route on the backhaul interface to properly forward packets between the backhaul and the 6LoWPAN mesh network. In addition to this, you need to set a backhaul prefix. You can set both either manually through the yotta configuration or automatically at runtime (IPv6 autoconfiguration). By default the border router uses a statically configured backhaul prefix and default route with the `backhaul-bootstrap-mode` set to `NET_IPV6_BOOTSTRAP_STATIC` in the border router's `config.json` file. This mode creates a site-local IPv6 network from where packets cannot be routed outside.
 
 The backhaul bootstrap mode can be changed to dynamic mode with `NET_IPV6_BOOTSTRAP_AUTONOMOUS` where the border router learns the prefix information automatically from an IPv6 gateway in the ethernet segment. For more details on how to set the backhaul prefix and default route, please refer to the [Nanostack Border Router](https://github.com/ARMmbed/nanostack-border-router) documentation.
+
+When using the autonomous mode, you can set the `prefix-from-backhaul` option in yotta configuration to `true` to use the bakchaul prefix on the mesh network side as well. This allows for the mesh nodes to be directly connectable from the outside of the mesh network.
 
 ##### Note on the SLIP backhaul driver
 You need to use the UART1 serial line of the K64F board with the SLIP driver. See the *pins* section in the project's yotta configuration. To use a different UART line, replace the *SERIAL_TX* and *SERIAL_RX* values with correct TX/RX pin names. For the pin names of your desired UART line, please refer to the [FRDM-K64F documentation](https://developer.mbed.org/platforms/FRDM-K64F/).
@@ -138,7 +140,7 @@ The debug prints for the 6LoWPAN node running the `mbed-client-example-6lowpan` 
 ```
 
 ## Testing the border router application using Linux
-This section describes how to manually verify that the FRDM-K64F border router application is running correctly. For testing mesh network connectivity, you need to connect a node running `mbed-client-example-6lowpan` application in 6LoWPAN ND mode to the network and ping the node's RF interface address from your PC.
+This section describes how to manually verify that the FRDM-K64F border router application is running correctly. For testing mesh network connectivity, you need to connect a node running [mbed-client-example-6lowpan](https://github.com/ARMmbed/mbed-client-example-6lowpan/) in 6LoWPAN ND mode to the network and ping the node's RF interface address from your PC.
 
 1. Configure the [mbed-client-example-6lowpan](https://github.com/ARMmbed/mbed-client-example-6lowpan/#changing-the-radio-channel) to use the same channel as the border router (default: 12). Ensure that `appl_bootstrap_mode_thread` is set to false in the `config.json` file.
 2. Compile the `mbed-client-example-6lowpan` application and flash it into one of the development boards as described in [mbed client build instructions](https://github.com/ARMmbed/mbed-client-example-6lowpan/#build-instructions).
