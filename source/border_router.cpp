@@ -55,7 +55,7 @@ static void toggle_led1()
  */
 static void trace_printer(const char *str)
 {
-    pc.printf("%s\r\n", str);
+	get_stdio_serial().printf("%s\r\n", str);
 }
 
 /**
@@ -68,7 +68,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t, int8_t))
 
     if (strcmp(driver, "SLIP") == 0) {
         int8_t slipdrv_id;
-        pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX);
+        pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX, SERIAL_RTS, SERIAL_CTS);
         tr_debug("Using SLIP backhaul driver...");
 
         if (pslipmacdriver == NULL) {
@@ -76,7 +76,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t, int8_t))
             return;
         }
 
-        slipdrv_id = pslipmacdriver->Slip_Init(mac);
+        slipdrv_id = pslipmacdriver->Slip_Init(mac, YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_SERIAL_BAUD);
 
         if (slipdrv_id >= 0) {
             backhaul_driver_status_cb(1, slipdrv_id);
@@ -101,7 +101,7 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t, int8_t))
 void app_start(int, char **)
 {
     // set the baud rate for output printing
-    pc.baud(YOTTA_CFG_K64F_BORDER_ROUTER_BAUD);
+	get_stdio_serial().baud(YOTTA_CFG_K64F_BORDER_ROUTER_BAUD);
 
     // set heap size and memory error handler for this application
     ns_dyn_mem_init(app_stack_heap, APP_DEFINED_HEAP_SIZE, app_heap_error_handler, 0);
@@ -120,7 +120,7 @@ void app_start(int, char **)
         /* MAC is defined by the user through yotta configuration */
         const uint8_t mac48[] = YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_MAC;
 
-        for (int i = 0; i < sizeof(mac); ++i) {
+        for (uint32_t i = 0; i < sizeof(mac); ++i) {
             mac[i] = mac48[i];
         }
     }
