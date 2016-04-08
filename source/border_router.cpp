@@ -41,14 +41,15 @@ static uint8_t mac[6] = {0};
 
 static SlipMACDriver *pslipmacdriver;
 static Serial pc(USBTX, USBRX);
-static DigitalOut led1(LED1);
-
 static void app_heap_error_handler(heap_fail_t event);
 
-static void toggle_led1()
+static DigitalOut led1(LED1);
+
+static void backhaul_link_status_polling()
 {
-    led1 = !led1;
+    k64f_eth_phy_up();
 }
+
 
 /**
  * \brief Prints string to serial (adds CRLF).
@@ -125,9 +126,8 @@ void app_start(int, char **)
         }
     }
 
-    // run LED toggler in the Minar scheduler
     minar::Scheduler::postCallback(mbed::util::FunctionPointer0<void>
-                                   (toggle_led1).bind()).period(minar::milliseconds(500));
+                                     (backhaul_link_status_polling).bind()).period(minar::milliseconds(10000));
 
     tr_info("Starting K64F border router...");
     border_router_start();
