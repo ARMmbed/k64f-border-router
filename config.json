@@ -3,6 +3,7 @@
     "debug-traces": 1,
     "baud": "115200",
     "backhaul-driver": "ETH",
+    "backhaul-serial-baud": "115200",
     "backhaul-mac-src": "BOARD",
     "backhaul-mac": "{0x02, 0x00, 0x00, 0x00, 0x00, 0x01}"
   },
@@ -48,7 +49,9 @@
     "pins" : {
 	  "LED1": "LED_GREEN",
 	  "SERIAL_TX": "PTE0",
-	  "SERIAL_RX": "PTE1"
+	  "SERIAL_RX": "PTE1",
+	  "SERIAL_CTS": "PTE2",
+	  "SERIAL_RTS": "PTE3"
     }
   }
 }
