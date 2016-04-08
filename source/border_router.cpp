@@ -41,14 +41,16 @@ static uint8_t mac[6] = {0};
 
 static SlipMACDriver *pslipmacdriver;
 static Serial pc(USBTX, USBRX);
+static void app_heap_error_handler(heap_fail_t event);
+static const char *driver = STR(YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_DRIVER);
+
 static DigitalOut led1(LED1);
 
-static void app_heap_error_handler(heap_fail_t event);
-
-static void toggle_led1()
+static void backhaul_link_status_polling()
 {
-    led1 = !led1;
+    k64f_eth_phy_up();
 }
+
 
 /**
  * \brief Prints string to serial (adds CRLF).
@@ -64,7 +66,6 @@ static void trace_printer(const char *str)
  */
 void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t, int8_t))
 {
-    const char *driver = STR(YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_DRIVER);
 
     if (strcmp(driver, "SLIP") == 0) {
         int8_t slipdrv_id;
@@ -125,9 +126,10 @@ void app_start(int, char **)
         }
     }
 
-    // run LED toggler in the Minar scheduler
+    if(strcmp(driver, "ETH") == 0){
     minar::Scheduler::postCallback(mbed::util::FunctionPointer0<void>
-                                   (toggle_led1).bind()).period(minar::milliseconds(500));
+                                     (backhaul_link_status_polling).bind()).period(minar::milliseconds(10000));
+    }
 
     tr_info("Starting K64F border router...");
     border_router_start();
