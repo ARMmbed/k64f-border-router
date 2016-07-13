@@ -37,7 +37,7 @@ The FRDM-K64F border router application consists of 4 software components as sho
 * A GitHub account.
 
 ## Optional software
-* [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) - for serial terminal emulation, see [settings](#serial-connection-setup).
+* [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) - for serial terminal emulation, see [serial connection settings](#Serial-connection-settings).
 * [Wireshark](https://www.wireshark.org/) - for packet inspection and network debugging.
 * [mbed Windows serial port driver](https://developer.mbed.org/handbook/Windows-serial-configuration) - a serial driver for Windows to enable serial connections.
 
