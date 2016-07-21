@@ -59,6 +59,10 @@ static SlipMACDriver *pslipmacdriver;
 static Serial pc(USBTX, USBRX);
 static DigitalOut led1(LED1);
 
+#ifdef MBED_CONF_RTOS_PRESENT
+static Ticker led_ticker;
+#endif
+
 static void app_heap_error_handler(heap_fail_t event);
 
 static void toggle_led1()
@@ -95,12 +99,13 @@ void backhaul_driver_init(void (*backhaul_driver_status_cb)(uint8_t, int8_t))
 #else
         pslipmacdriver = new SlipMACDriver(SERIAL_TX, SERIAL_RX);
 #endif
-        tr_info("Using SLIP backhaul driver...");
 
         if (pslipmacdriver == NULL) {
             tr_error("Unable to create SLIP driver");
             return;
         }
+
+        tr_info("Using SLIP backhaul driver...");
 
 #ifndef MBED_CONF_RTOS_PRESENT
         slipdrv_id = pslipmacdriver->Slip_Init(mac, YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_SERIAL_BAUD);
@@ -160,12 +165,7 @@ void app_start(int, char **)
         mbed_mac_address((char *)mac);
     } else if (strcmp(mac_src, "CONFIG") == 0) {
         /* MAC is defined by the user through yotta configuration */
-
 #ifndef MBED_CONF_RTOS_PRESENT
-        // run LED toggler in the Minar scheduler
-        minar::Scheduler::postCallback(mbed::util::FunctionPointer0<void>
-                                       (toggle_led1).bind()).period(minar::milliseconds(500));
-
         const uint8_t mac48[] = YOTTA_CFG_K64F_BORDER_ROUTER_BACKHAUL_MAC;
 #else
         const uint8_t mac48[] = MBED_CONF_APP_BACKHAUL_MAC;
@@ -176,6 +176,13 @@ void app_start(int, char **)
         }
     }
 
+#ifndef MBED_CONF_RTOS_PRESENT
+    // run LED toggler in the Minar scheduler
+    minar::Scheduler::postCallback(mbed::util::FunctionPointer0<void>
+                                  (toggle_led1).bind()).period(minar::milliseconds(500));
+#else
+    led_ticker.attach_us(toggle_led1, 500000);
+#endif
     tr_info("Starting K64F border router...");
     border_router_start();
 }
