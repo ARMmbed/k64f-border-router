@@ -15,7 +15,11 @@
  */
 
 #include <string.h>
+#ifdef YOTTA_CFG
 #include "mbed-drivers/mbed.h"
+#else
+#include "mbed.h"
+#endif
 #include "nsdynmemLIB.h"
 #include "nanostack-border-router/borderrouter_tasklet.h"
 #include "sal-nanostack-driver-k64f-eth/k64f_eth_nanostack_port.h"
