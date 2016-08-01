@@ -23,7 +23,7 @@ The FRDM-K64F border router application consists of 4 software components as sho
 
 ## Required hardware
 
-* Two FRDM-K64F development boards, one for the border router application and another one for [the 6LoWPAN mbed client application](hhttps://github.com/ARMmbed/mbed-os-example-client).
+* Two FRDM-K64F development boards, one for the border router application and another one for [the 6LoWPAN mbed client application](https://github.com/ARMmbed/mbed-os-example-client).
 * Two mbed 6LoWPAN shields (AT86RF212B/[AT86RF233](http://uk.rs-online.com/web/p/radio-frequency-development-kits/9054107/)) for wireless 6LoWPAN mesh connectivity.
 * Two micro-USB cables to connect the development boards to a PC for debugging and power.
 * An Ethernet cable to connect the development board to a backhaul network.
