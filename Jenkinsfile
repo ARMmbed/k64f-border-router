@@ -36,11 +36,11 @@ def buildStep(target, compilerLabel, toolchain) {
           checkout scm
 
           // Update target features to match newest mbed-os
-          execute(sed -i 's/\"IPV6\", \"COMMON_PAL\"/\"NANOSTACK\", \"LOWPAN_BORDER_ROUTER\", \"COMMON_PAL\"/' mbed_app.json)
+          execute("sed -i 's/\"IPV6\", \"COMMON_PAL\"/\"NANOSTACK\", \"LOWPAN_BORDER_ROUTER\", \"COMMON_PAL\"/' mbed_app.json")
   
-          execute ("mbed deploy --protocol ssh")
+          execute("mbed deploy --protocol ssh")
           //Checkout mbed-os master
-          dir(mbed-os) {
+          dir("mbed-os") {
             execute("git fetch origin master")
             execute("git checkout FETCH_HEAD")
           }
