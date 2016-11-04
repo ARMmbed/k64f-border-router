@@ -25,6 +25,8 @@ The FRDM-K64F border router application consists of 4 software components as sho
 
 * Two FRDM-K64F development boards, one for the border router application and another one for [the 6LoWPAN mbed client application](https://github.com/ARMmbed/mbed-os-example-client).
 * Two mbed 6LoWPAN shields (AT86RF212B/[AT86RF233](http://uk.rs-online.com/web/p/radio-frequency-development-kits/9054107/)) for wireless 6LoWPAN mesh connectivity.
+ * Alternatively you can use [NXP MCR20A](http://www.nxp.com/products/software-and-tools/hardware-development-tools/freedom-development-boards/freedom-development-board-for-mcr20a-wireless-transceiver:FRDM-CR20A) shields.
+ * See [Switching the RF shield](#switching-the-rf-shield)
 * Two micro-USB cables to connect the development boards to a PC for debugging and power.
 * An Ethernet cable to connect the development board to a backhaul network.
 
@@ -98,6 +100,29 @@ Example yotta configuration for the SLIP driver:
     	"SERIAL_RTS": "PTE3"
   },
 ```
+
+### Switching the RF shield
+
+By default the application uses Atmel AT86RF233/212B RF driver. You can alternatively use FRDM-MCR20A shield also. Used RF driver is set in the `mbed_app.json` file.
+
+To use the Atmel radio, use following:
+```
+        "radio-type":{
+            "help": "options are ATMEL, MCR20",
+            "value": "ATMEL"
+        },
+```
+
+To use the NXP radio, use following:
+```
+        "radio-type":{
+            "help": "options are ATMEL, MCR20",
+            "value": "MCR20"
+        },
+```
+
+After changing the radio, you need to recompile the application.
+
 ## Build instructions
 
 1. Install [mbed-cli](https://github.com/ARMmbed/mbed-cli).
