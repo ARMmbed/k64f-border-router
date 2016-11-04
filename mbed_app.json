@@ -4,6 +4,10 @@
              "help": "The amount of static RAM to reserve for nsdynmemlib heap",
              "value": 50000
         },
+        "radio-type":{
+            "help": "options are ATMEL, MCR20",
+            "value": "ATMEL"
+        },
         "debug-trace": "false",
         "trace-baud-rate": "115200",
         "backhaul-driver": "ETH",
