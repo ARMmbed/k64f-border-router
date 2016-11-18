@@ -9,17 +9,26 @@ def toolchains = [
   GCC_ARM: "arm-none-eabi-gcc",
   IAR: "iar_arm"
   ]
+
+// Supported RF shields
+def radioshields = [
+  "ATMEL",
+  "MCR20"
+  ]
   
 def stepsForParallel = [:]
 
 // Jenkins pipeline does not support map.each, we need to use oldschool for loop
 for (int i = 0; i < targets.size(); i++) {
   for(int j = 0; j < toolchains.size(); j++) {
-    def target = targets.get(i)
-    def toolchain = toolchains.keySet().asList().get(j)
-    def compilerLabel = toolchains.get(toolchain)
-    def stepName = "${target} ${toolchain}"
-    stepsForParallel[stepName] = buildStep(target, compilerLabel, toolchain)
+    for(int k = 0; k < radioshields.size(); k++) {
+      def target = targets.get(i)
+      def toolchain = toolchains.keySet().asList().get(j)
+      def compilerLabel = toolchains.get(toolchain)
+      def radioshield = radioshields.get(k)
+      def stepName = "${target} ${toolchain} ${radioshield}"
+      stepsForParallel[stepName] = buildStep(target, compilerLabel, toolchain, radioshield)
+    }
   }
 }
 
@@ -27,16 +36,18 @@ timestamps {
   parallel stepsForParallel
 }
 
-def buildStep(target, compilerLabel, toolchain) {
+def buildStep(target, compilerLabel, toolchain, radioshield) {
   return {
-    stage ("${target}_${compilerLabel}") {
+    stage ("${target}_${compilerLabel}_${radioshield}") {
       node ("${compilerLabel}") {
         deleteDir()
         dir("k64f-border-router") {
           checkout scm
 
-          // Update target features to match newest mbed-os
-          execute("sed -i 's/\"IPV6\", \"COMMON_PAL\"/\"NANOSTACK\", \"LOWPAN_BORDER_ROUTER\", \"COMMON_PAL\"/' mbed_app.json")
+          if ("${radioshield}" == "MCR20") {
+            // Replace default rf shield
+            execute("sed -i 's/\"value\": \"ATMEL\"/\"value\": \"MCR20\"/' mbed_app.json")
+          }
   
           execute("mbed deploy --protocol ssh")
           //Checkout mbed-os master
@@ -44,7 +55,7 @@ def buildStep(target, compilerLabel, toolchain) {
             execute("git fetch origin master")
             execute("git checkout FETCH_HEAD")
           }
-          execute("mbed compile --build out/${target}_${compilerLabel}/ -m ${target} -t ${toolchain} -c")
+          execute("mbed compile --build out/${target}_${compilerLabel}_${radioshield}/ -m ${target} -t ${toolchain} -c")
         }
         archive '**/k64f-border-router.bin'
       }
