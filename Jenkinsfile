@@ -131,7 +131,7 @@ def run_smoke(targets, toolchains, radioshields, raasPort, suite_to_run) {
               echo "int j: ${j}"
               for(int k = 0; k < radioshields.size(); k++) {
                 echo "int k: ${k}"
-                def target = targets.keySet().asList().get(i)
+                def target = targets.get(i)
                 echo "target is: ${target}"
                 def toolchain = toolchains.keySet().asList().get(j)
                 echo "toolchain is: ${toolchain}"
