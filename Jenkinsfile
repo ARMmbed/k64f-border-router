@@ -3,8 +3,6 @@ properties ([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [
   [$class: 'BooleanParameterDefinition', name: 'smoke_test', defaultValue: false, description: 'Enable to run HW smoke test after building']
   ]]])
 
-echo "Run smoke tests: ${smoke_test}"
-
 try {
   echo "Verifying build with mbed-os version ${mbed_os_revision}"
   env.MBED_OS_REVISION = "${mbed_os_revision}"
@@ -12,6 +10,13 @@ try {
   def mbed_os_revision = "master"
   echo "Verifying build with mbed-os version ${mbed_os_revision}"
   env.MBED_OS_REVISION = "${mbed_os_revision}"
+}
+
+try {
+  echo "Run smoke tests: ${smoke_test}"
+} catch (err) {
+  def smoke_test = "false"
+  echo "Run smoke tests: ${smoke_test}"
 }
 
 // Map test suites to corresponding RaaS instances
@@ -121,13 +126,22 @@ def run_smoke(targets, toolchains, radioshields, raasPort, suite_to_run) {
           }
 
           for (int i = 0; i < targets.size(); i++) {
+            echo "int i: ${i}"
             for(int j = 0; j < toolchains.size(); j++) {
+              echo "int j: ${j}"
               for(int k = 0; k < radioshields.size(); k++) {
+                echo "int k: ${k}"
                 def target = targets.keySet().asList().get(i)
+                echo "target is: ${target}"
                 def toolchain = toolchains.keySet().asList().get(j)
+                echo "toolchain is: ${toolchain}"
                 def compilerLabel = toolchains.get(toolchain)
+                echo "compilerLabel is: ${compilerLabel}"
                 def radioshield = radioshields.get(k)
+                echo "radioshield is: ${radioshield}"
+                echo "Unstashing ${target}_${compilerLabel}_${radioshield}"
                 unstash "${target}_${compilerLabel}_${radioshield}"
+                echo "unstash done"
               }
             }
           }
