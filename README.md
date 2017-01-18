@@ -1,6 +1,6 @@
 # FRDM-K64F border router
 
-This document describes how to configure, compile, and run a FRDM-K64F 6LoWPAN border router application on a [FRDM-K64F development board](https://www.mbed.com/en/development/hardware/boards/nxp/frdm_k64f/). 
+This document describes how to configure, compile, and run a FRDM-K64F 6LoWPAN border router application on a [FRDM-K64F development board](https://developer.mbed.org/platforms/FRDM-K64F/). 
 
 <span class="notes">**Note:** This Border Router does not support Thread. For non-RTOS (yotta build), please follow onstructions in [Building with yotta](Building_with_yotta.md).</span>
 
