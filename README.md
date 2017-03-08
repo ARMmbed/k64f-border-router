@@ -1,3 +1,7 @@
+**Note: from mbed OS 5.4.0 onwards this example is superseded by the unified [Nanostack Border Router](https://github.com/ARMmbed/nanostack-border-router)**
+
+***
+
 # FRDM-K64F border router
 
 This document describes how to configure, compile, and run a FRDM-K64F 6LoWPAN border router application on a [FRDM-K64F development board](https://developer.mbed.org/platforms/FRDM-K64F/). 
